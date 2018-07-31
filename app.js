@@ -18,11 +18,7 @@ const Shopify = new shopifyAPI({
 const port = 5555; // port 5555 for requests
 let id; // product id
 let title; // shipping title
-let addTag = {
-  "order": {
-    "tags": "In-Store" // tag to be added to the orders
-  }
-}
+
 
 app.get('/', function(req,res) {
   return res.end(req.query.challenge);
@@ -33,17 +29,17 @@ app.post('/', (req, res) => {
   console.log(`Shipping Method: ${req.body.shipping_lines[0].title}`);
   title = req.body.shipping_lines[0].title;
   id = req.body.id;
-
+  let addTag = {
+    "order": {
+      "tags": title // tag to be added to the orders
+    }
+  }
   // Puts "In-Store" tag on orders with "In-Store" shipping method
-  if (title === "In-Store") {
     Shopify.put('/admin/orders/' + id + '.json', addTag, function(err, data, headers) {
       if(err){} else {
-        console.log("Tag Added: 'In-Store'");
+        console.log("Tag Added: " + title);
       }
     })
-  } else {
-    console.log("Shipping method is not 'In-Store'. No action taken.")
-  }
   res.sendStatus(200); // OK status for Shopify
 });
 
