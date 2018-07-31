@@ -47,6 +47,6 @@ app.post('/', (req, res) => {
   res.sendStatus(200); // OK status for Shopify
 });
 
-app.listen(port, function() {
+app.listen(process.env.PORT || port, function() {
   console.log(`Listening for Shopify webhook event data on port ${port}.`);
 });
