@@ -27,13 +27,11 @@ app.get('/', function(req,res) {
 app.post('/', (req, res) => {
   console.log(`Order id: ${req.body.id}`);
   console.log(`Shipping Method: ${req.body.shipping_lines[0].title}`);
-  stringTitle = req.body.shipping_lines[0].title;
-  title = stringTitle.split(' ( ');
-  title[0] = title[0].slice(0, -1);
+  title = req.body.shipping_lines[0].title.split(' (')[0];
   id = req.body.id;
   let addTag = {
     "order": {
-      "tags": title[0] // tag to be added to the orders
+      "tags": title // tag to be added to the orders
     }
   }
   // Puts "In-Store" tag on orders with "In-Store" shipping method
