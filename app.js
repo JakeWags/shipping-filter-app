@@ -26,7 +26,7 @@ app.get('/', function(req,res) {
 
 app.post('/', (req, res) => {
   console.log(`Order id: ${req.body.id}`);
-  console.log(`Shipping Method: ${req.body.shipping_lines[0].title}`);
+  console.log(`Shipping Method: ${req.body.shipping_lines[0].title.split(' (')[0]}`);
   title = req.body.shipping_lines[0].title.split(' (')[0];
   id = req.body.id;
   let addTag = {
