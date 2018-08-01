@@ -37,7 +37,7 @@ app.post('/', (req, res) => {
       tagName = "Expedited";
     } else if (title[i] === "In-Store") {
       tagName = "In-Store";
-    } else if (i === title.length) {
+    } else if (i === title.length - 1) {
       tagDate = title[i].slice(0,-1);
     }
   }
@@ -50,7 +50,7 @@ app.post('/', (req, res) => {
   // Puts "In-Store" tag on orders with "In-Store" shipping method
     Shopify.put('/admin/orders/' + id + '.json', addTag, function(err, data, headers) {
       if(err){} else {
-        console.log("Tag Added: " + title);
+        console.log("Tags Added: " + tagName + ", " + tagDate);
       }
     })
   res.sendStatus(200); // OK status for Shopify
