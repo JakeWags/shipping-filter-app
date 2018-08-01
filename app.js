@@ -50,6 +50,6 @@ app.listen(process.env.PORT || port, function() {
 
 // This is to prevent idling on Heroku which delays the time for order tagging and processing
 setInterval(() => {
-  http.get("https://order-shipping-tag.herokuapp.com");
+  http.get("http://order-shipping-tag.herokuapp.com");
   console.log("Pinged own server, staying alive!");
 }, 300000); // pings every 5 minutes
