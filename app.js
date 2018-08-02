@@ -38,7 +38,11 @@ app.post('/', (req, res) => {
     } else if (title[i] === "In-Store") {
       tagName = "In-Store";
     } else if (i === title.length - 1) {
-      tagDate = title[i].slice(0,-1);
+      if (title[i].length >= 7) {
+        tagDate = title[i].slice(0,-1);
+      } else {
+        tagDate = title[i]; 
+      }
     }
   }
   id = req.body.id;
