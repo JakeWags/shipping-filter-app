@@ -17,38 +17,45 @@ const Shopify = new shopifyAPI({
 });
 
 const port = 5555; // port 5555 for requests
-let id; // product id
-let title; // shipping title
-let tagName;
-let tagDate;
 
 app.get('/', function(req,res) {
   return res.end(req.query.challenge);
 });
 
 app.post('/', (req, res) => {
+  let id; // product id
+  let title; // shipping title
+  let tag1; // tag 1
+  let tag2; // tag 2
+  let tagsToAdd; // combined tags
+  let addTag; // tag object
   console.log(`Order id: ${req.body.id}`);
   console.log(`Shipping Method: ${req.body.shipping_lines[0].title}`);
-  title = req.body.shipping_lines[0].title.split(' ');
+  title = req.body.shipping_lines[0].title.split(' '); // full shipping method split into an array
   for (let i = 0; i < title.length; i++) {
     if (title[i] === "Ground") {
-      tagName = "Ground";
+      tag1 = "Ground";
     } else if (title[i] === "Expedited") {
-      tagName = "Expedited";
+      tag1 = "Expedited";
     } else if (title[i] === "In-Store") {
-      tagName = "In-Store";
-    } else if (i === title.length - 1) {
-      if (title[i].length >= 7) {
-        tagDate = title[i].slice(0,-1);
+      tag1 = "In-Store";
+    } else if (i === title.length - 1) { // if final object (date, zipcode, or overnight)
+      if (title[i].length >= 7 && title[i] != "Overnight") { // if date
+        tag2 = title[i].slice(0,-1); // remove parentheses at end of date
+      } else if (title[i] === "Overnight") { // if overnight
+        tagsToAdd = "Overnight";
       } else {
-        tagDate = title[i]; 
+        tag2 = title[i]; // if zipcode
       }
     }
   }
+  if (tagsToAdd == null) { // if tagsToAdd is still undefined
+    tagsToAdd = tag1 + ", " + tag2;
+  }
   id = req.body.id;
-  let addTag = {
+  addTag = {
     "order": {
-      "tags": tagName + ',' + tagDate // tag to be added to the orders
+      "tags": tagsToAdd // tag to be added to the orders
     }
   }
   // Puts "In-Store" tag on orders with "In-Store" shipping method
