@@ -27,7 +27,7 @@ app.post('/', (req, res) => {
   let title; // shipping title
   let tag1; // tag 1
   let tag2; // tag 2
-  let tagsToAdd; // combined tags
+  let tagsToAdd = null; // combined tags ( = null to reset it);
   let addTag; // tag object
   console.log(`Order id: ${req.body.id}`);
   console.log(`Shipping Method: ${req.body.shipping_lines[0].title}`);
