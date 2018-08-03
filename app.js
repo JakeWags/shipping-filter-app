@@ -61,7 +61,7 @@ app.post('/', (req, res) => {
   // Puts "In-Store" tag on orders with "In-Store" shipping method
     Shopify.put('/admin/orders/' + id + '.json', addTag, function(err, data, headers) {
       if(err){} else {
-        console.log("Tags Added: " + tagName + ", " + tagDate);
+        console.log("Tags Added: " + tagsToAdd);
       }
     })
   res.sendStatus(200); // OK status for Shopify
