@@ -10,9 +10,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 const Shopify = new shopifyAPI({
-  shop: '530dev', // MYSHOP.myshopify.com
-  shopify_api_key: '12916c912fe5c19c2f4f4cf687252efb', // App API key
-  access_token: '880a84c07dc7f00a77f95e41d53fc123' // App API password
+  shop: '', // MYSHOP.myshopify.com **** HIDDEN FOR SECURITY PURPOSES ****
+  shopify_api_key: '', // App API key **** HIDDEN FOR SECURITY PURPOSES ****
+  access_token: '' // App API password **** HIDDEN FOR SECURITY PURPOSES ****
 });
 
 const port = 5555; // port 5555 for requests
